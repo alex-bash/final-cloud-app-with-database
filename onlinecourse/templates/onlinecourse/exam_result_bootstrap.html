@@ -24,7 +24,7 @@
                     {% csrf_token %}
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Username" name="username" >
-                        <input type="password" class="form-control" placeholder="Username" name="psw" >
+                        <input type="password" class="form-control" placeholder="Password" name="psw" >
                         <button class="btn btn-primary" type="submit">Login</button>
                         <a class="btn btn-link" href="{% url 'onlinecourse:registration' %}">Sign Up</a>
                     </div>
@@ -38,11 +38,24 @@
 <div class="container-fluid">
     {% if grade > 80 %}
     <div class="alert alert-success">
-       <p><b>Congratulations, {{user.first_name}}!</b> You have passed the exam and completed the course with score {{grade}} / 100</p>
+       <p><b>Congratulations, 
+           {% if user.first_name == '' %}
+           {{user.username}}
+           {% else %}
+           {{user.first_name}}
+           {% endif %}
+           !
+        </b> You have passed the exam and completed the course with score {{grade}} / 100</p>
     </div>
         {% else %}
         <div class="alert alert-danger">
-            <p><b>Failed</b>. Sorry, {{user.first_name}}! You have failed the exam with the score of {{grade}} / 100</p>
+            <p><b>Failed</b>. Sorry, 
+            {% if user.first_name == '' %}
+                {{user.username}}
+            {% else %}
+                {{user.first_name}}
+            {% endif %}
+            ! You have failed the exam with the score of {{grade}} / 100</p>
         </div>
         <a class="btn btn-link text-danger" href="{% url 'onlinecourse:course_details' course.id %}">Re-test</a>
         {% endif %}
