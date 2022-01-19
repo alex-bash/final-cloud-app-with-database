@@ -1,5 +1,4 @@
 from asyncio.format_helpers import extract_stack
-from defer import inline_callbacks
 from django.contrib import admin
 # <HINT> Import any new Models here
 from .models import Course, Lesson, Instructor, Learner, Choice, Question
